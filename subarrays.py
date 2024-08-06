@@ -17,6 +17,6 @@ l=[1,2,3,4]
 for s in range(len(l)):
     p=[]
     for e in range(s,len(l)):
-        p+=[l[e]]
+        p+=[l[e]] #p=[s:e]
         print(p)
 
