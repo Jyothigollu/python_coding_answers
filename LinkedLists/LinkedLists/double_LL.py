@@ -2,16 +2,18 @@ class Node:
     def __init__(self,data):
         self.data=data
         self.next=None
-class SingleLinkedList:
+        self.prev=None
+class DoubelLinkedList:
     def __init__(self):
         self.head=self.tail=None
 
     #insertion at last    
-    def Create_LL(self,data):
+    def Insertion_last(self,data):
         n=Node(data)
         if self.head==None:
             self.head=self.tail=n
         else:
+            n.prev=self.tail
             self.tail.next=n
             self.tail=n
 
@@ -22,6 +24,7 @@ class SingleLinkedList:
             self.head=self.tail=n
         else:
             n.next=self.head
+            self.head.prev=n
             self.head=n
 
     #insertion based on position        
@@ -32,17 +35,20 @@ class SingleLinkedList:
                 self.head=self.tail=n
             else:
                 n.next=self.head
+                self.head.prev=n
                 self.head=n
-            return n
+            return self.head
         c=0
         temp=self.head
-        while temp!=None:
+        while temp!=None and c<pos-1:
             c+=1
             if c==pos-1:
                 n.next=temp.next
+                n.prev=temp
+                temp.next.prev=n
                 temp.next=n
             temp=temp.next
-        if pos>c:
+        if temp==None:
             print("invalid position")
             return
     
@@ -118,14 +124,14 @@ class SingleLinkedList:
             temp=temp.next
 
 
-s=SingleLinkedList()
+s=DoubelLinkedList()
 while True:
     print()
     print("1.Creation \n 2.Insertion first\n 3.Insertion position \n 4.Inseration based on Value \n 5.Delete last Node \n 6.Delete first Node \n 7. Delete Based On position \n 8.Show \n ")
     ch=int(input("Choice"))
     if ch==1:
         data=int(input("element"))
-        s.Create_LL(data)
+        s.Insertion_last(data)
     elif ch==2:
         d=int(input())
         s.Insertion_first(d)
