@@ -64,6 +64,8 @@ class DoubelLinkedList:
         while temp.next.next!=None:
             if temp.next.data==val:
                 n.next=temp.next
+                n.prev=temp.next
+                temp.next.prev=n
                 temp.next=n
                 return self.head
             temp=temp.next
@@ -93,7 +95,12 @@ class DoubelLinkedList:
         if self.head==None:
             print("list is empty")
             return
+        if self.head.next is None:
+            self.head = None
+            self.tail = None
+            return
         self.head=self.head.next
+        self.head.prev=None
         return self.head
     
     #deletion based on postion
@@ -106,6 +113,7 @@ class DoubelLinkedList:
         while temp !=None:
             c+=1
             if c==pos-1:
+                temp.next.next.prev=temp
                 temp.next=temp.next.next
                 return self.head
             temp=temp.next
